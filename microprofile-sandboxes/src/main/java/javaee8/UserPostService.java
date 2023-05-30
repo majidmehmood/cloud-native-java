@@ -40,23 +40,17 @@ public class UserPostService {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getUserPosts() {
-		System.out.println("API = " + userPostAPI);
-		// return "{}";
 		WebTarget target = client.target(userPostAPI);
 		JsonArray posts = target.request().get(JsonArray.class);
-		// System.out.println("POSTS = " + posts);
-
 		JsonArrayBuilder arr = Json.createArrayBuilder();
 		Iterator<JsonValue> iterator = posts.iterator();
 		while (iterator.hasNext()) {
 			JsonValue p = iterator.next();
-			System.out.println("POST = " + p);
+			// System.out.println("POST = " + p);
 			String body = p.asJsonObject().getString("body");
-			System.out.println("body = " + body);
-
 			arr.add(body);
 		}
-		return Response.ok(arr).build();
+		return Response.ok(arr.build()).build();
 
 	}
 

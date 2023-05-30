@@ -3,9 +3,19 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.majidmehmood</groupId>
-	<artifactId>cloud-native-javaee</artifactId>
+	<artifactId>microprofile-sandboxes</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
+
+  <properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<payaraVersion>5.2022.2</payaraVersion>
+	</properties>
+
 	<dependencies>
 
 		<dependency>
@@ -15,7 +25,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 		<dependency>
       <groupId>org.eclipse.microprofile</groupId>
       <artifactId>microprofile</artifactId>
@@ -24,55 +33,46 @@
       <scope>provided</scope>
     </dependency>
 
-
-		
 	</dependencies>
+
 	<build>
 		<finalName>service</finalName>
 	</build>
 
-<profiles>
-    <profile>
-      <id>payara-micro</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>fish.payara.maven.plugins</groupId>
-            <artifactId>payara-micro-maven-plugin</artifactId>
-            <version>1.0.5</version>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>bundle</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <payaraVersion>${payaraVersion}</payaraVersion>
-              <commandLineOptions>
-              <option>
-    <key>--nocluster</key>
-    <value>true</value>
-</option>
-              </commandLineOptions>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+  <profiles>
+      <profile>
+        <id>payara-micro</id>
+        <activation>
+          <activeByDefault>true</activeByDefault>
+        </activation>
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>fish.payara.maven.plugins</groupId>
+              <artifactId>payara-micro-maven-plugin</artifactId>
+              <version>1.0.5</version>
+              <executions>
+                <execution>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>bundle</goal>
+                  </goals>
+                </execution>
+              </executions>
+              <configuration>
+                <payaraVersion>${payaraVersion}</payaraVersion>
+                <commandLineOptions>
+                <option>
+                    <key>--noCluster</key>
+                    <value>true</value>
+                </option>
+                </commandLineOptions>
+              </configuration>
+            </plugin>
+          </plugins>
+        </build>
+      </profile>
+    </profiles>
 
-	<properties>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
-		<failOnMissingWebXml>false</failOnMissingWebXml>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<payaraVersion>5.2021.1</payaraVersion>
-
-	</properties>
+	
 </project>
